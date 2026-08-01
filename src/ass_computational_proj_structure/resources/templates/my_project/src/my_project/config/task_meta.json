@@ -1,0 +1,28 @@
+{
+  "task_meta": {
+    "encoding": "UTF-8",
+    "task_name": "{date-time}",
+    "task_run_dir": "{current_dir}",
+    "attribute": {
+      "Directly_belongs": "{parentDir}",
+      "Indirectly_belongs": null,
+      "purpose": "规范化开展每一个新项目和新模块"
+    },
+    "version": "{parentDir}",
+    "owner": "apyyc",
+    "date_range": {
+      "start": "{date-time}",
+      "end": "{date-time}",
+      "time_span": "{date-time}"
+    },
+    "resources": {
+      "max_parallel_cpu": 4,
+      "memory_mb": 2048,
+      "timeout_seconds": 3600,
+      "retry": {
+        "max_attempts": 3,
+        "backoff_seconds": 30
+      }
+    }
+  }
+}

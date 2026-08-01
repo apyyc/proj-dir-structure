@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+本书相关
+ - 1.本书填写日期时间：{YYYYMMRR}
+ - 2.本书填写者联系方式：qq2479511984
+ - 3.当前版本：{project_name}_{version}-{YYYYMMRR}
+ - 4.规范项目开展结构。
+
+1.属性：
+ - Directly_belongs:
+ - Indirectly_belongs: 无。
+ - purpose:

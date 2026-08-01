@@ -1,0 +1,99 @@
+{
+  "project": "test_templet",
+  "version": "1.0.0",
+  "description": "",
+  "structure": {
+    "root": {
+      "docs/": {
+        "purpose": "",
+        "children": {
+          "ass-Computational项目构建规范_1.0-20260701.txt": {
+            "purpose": ""
+          }
+        }
+      },
+      "scripts/": {
+        "purpose": "",
+        "children": {
+          "ci/": {
+            "purpose": ""
+          },
+          "deployment/": {
+            "purpose": ""
+          },
+          "development/": {
+            "purpose": ""
+          }
+        }
+      },
+      "src/": {
+        "purpose": "",
+        "children": {
+          "my_project/": {
+            "purpose": "",
+            "children": {
+              "api/": {
+                "purpose": ""
+              },
+              "config/": {
+                "purpose": ""
+              },
+              "constants/": {
+                "purpose": ""
+              },
+              "core/": {
+                "purpose": ""
+              },
+              "resources/": {
+                "purpose": "",
+                "children": {
+                  "AIprompts/": {
+                    "purpose": ""
+                  },
+                  "static/": {
+                    "purpose": ""
+                  },
+                  "templates/": {
+                    "purpose": ""
+                  }
+                }
+              },
+              "services/": {
+                "purpose": ""
+              },
+              "utils/": {
+                "purpose": ""
+              },
+              "workflows/": {
+                "purpose": ""
+              }
+            }
+          }
+        }
+      },
+      "tests/": {
+        "purpose": ""
+      },
+      "CHANGELOG.md": {
+        "purpose": ""
+      },
+      "LICENSE.txt": {
+        "purpose": ""
+      },
+      "README.md": {
+        "purpose": ""
+      },
+      "SUPPORT.md": {
+        "purpose": ""
+      },
+      "pyproject.toml": {
+        "purpose": ""
+      }
+    }
+  },
+  "naming_convention": {
+    "directories": "snake_case",
+    "files": "snake_case",
+    "classes": "PascalCase"
+  }
+}

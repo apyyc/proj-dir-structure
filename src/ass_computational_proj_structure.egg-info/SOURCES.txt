@@ -1,0 +1,12 @@
+LICENSE.txt
+README.md
+pyproject.toml
+src/ass_computational_proj_structure/main.py
+src/ass_computational_proj_structure.egg-info/PKG-INFO
+src/ass_computational_proj_structure.egg-info/SOURCES.txt
+src/ass_computational_proj_structure.egg-info/dependency_links.txt
+src/ass_computational_proj_structure.egg-info/requires.txt
+src/ass_computational_proj_structure.egg-info/top_level.txt
+src/ass_computational_proj_structure/core/backfill_placeholders.py
+src/ass_computational_proj_structure/core/directory_structure_to_jsonfile.py
+src/ass_computational_proj_structure/core/jsonfile_to_directory_structure.py

@@ -1,0 +1,16 @@
+{
+  "projec_config": {
+    "Environment":  {
+      "ffmpeg": "",
+      "ffplay": "",
+      "ffprobe": "",
+      "add_background_music": ""
+    },
+    "llm_api_config": {
+      "api_key": "",
+      "model": "deepseek-chat",
+      "temperature": 1.2,
+      "base_url": "https://api.deepseek.com"
+    }
+  }
+}

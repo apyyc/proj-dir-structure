@@ -1,0 +1,10 @@
+{
+  "project_config": {
+    "project_name": "mc-shen-bot",
+    "version": "0.1.0",
+    "output_path": "../../../../",
+    "templet_path": "../resources/templates/my_project",
+    "templet_structurejson_path": "../resources/templates/my_project/docs/structure.json"
+
+  }
+}

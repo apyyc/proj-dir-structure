@@ -1,0 +1,146 @@
+{
+  "project": "{project_name}",
+  "version": "{version}",
+  "description": "项目目录结构规范与文件职责说明（resources 置于 src/my_project/ 下）",
+  "structure": {
+    "root": {
+      "docs/": {
+        "purpose": "源代码根目录。使用 src 布局可以有效防止在运行测试时意外导入项目根目录下的模块，强制开发者以安装包的方式引用代码。",
+        "rules": "",
+        "children": {
+          "ass-Computational项目构建规范_1.0-20260701.txt": {
+            "purpose": "",
+            "rules": ""
+          }
+        }
+      },
+      "scripts/": {
+        "purpose": "运维与开发辅助脚本。部署，本地环境初始化等。",
+        "rules": "所有脚本应具有自包含性（不依赖项目 src 内的代码路径，如需依赖应使用 PYTHONPATH 或相对导入）。脚本文件头应添加 shebang（如 #!/usr/bin/env python3）和简短的使用说明（或 --help 支持）。避免在脚本中硬编码敏感信息，应从环境变量或 .env 读取。\",",
+        "children": {
+          "ci/": {
+            "purpose": "CI/CD 流水线辅助脚本。例如：解析版本号、生成变更日志摘要、发送通知、打包发布。",
+            "rules": ""
+          },
+          "deployment/": {
+            "purpose": "部署相关脚本（环境检查、服务启动/停止、健康检查）。",
+            "rules": ""
+          },
+          "development/": {
+            "purpose": "开发辅助脚本（本地环境初始化、pre-commit 安装、mock 数据生成）。",
+            "rules": ""
+          }
+        }
+      },
+      "src/": {
+        "purpose": "源代码根目录。使用 src 布局可以有效防止在运行测试时意外导入项目根目录下的模块，强制开发者以安装包的方式引用代码。",
+        "rules": "",
+        "children": {
+          "my_project/": {
+            "purpose": "主项目包，项目的顶级命名空间。所有业务代码必须放在此包下。",
+            "rules": "",
+            "children": {
+              "api/": {
+                "purpose": "接口适配层。接收前端 HTTP 请求，解析参数、认证，触发 workflows 或 services。包含路由（router）和依赖注入器（dependencies）。",
+                "rules": "",
+                "children": {
+                  "router":{
+                    "purpose": "",
+                    "rules": ""
+                  },
+                  "dependencies":{
+                    "purpose": "",
+                    "rules": ""
+                  }
+                }
+              },
+              "config/": {
+                "purpose": "配置管理层。负责读取环境变量（.env），并定义 Pydantic Settings 类。",
+                "rules": "配置类应单例化，在项目启动时加载。不应在业务代码中直接读取 os.getenv，应通过导入 settings 对象访问。",
+                "children": {
+                  "main_config.json": {
+                    "purpose": "",
+                    "rules": ""
+                  },
+                  "task_meta.json": {
+                    "purpose": "",
+                    "rules": ""
+                  }
+                }
+              },
+              "constants/": {
+                "purpose": "常量和枚举定义。例如订单状态（OrderStatus）、用户角色（Role）、缓存 Key 前缀等。",
+                "rules": "使用 Python 的 Enum 类或 dataclass 来组织。"
+              },
+              "core/": {
+                "purpose": "核心领域层。定义实体（Entities）和抽象接口（Interfaces/Ports）。不依赖任何外部框架或库，不实现任何具体功能。",
+                "rules": ""
+              },
+              "resources/": {
+                "purpose": "项目运行时需要的资源。此目录放在 src/my_project/ 下，便于作为包内资源访问和打包。",
+                "rules": "访问资源时推荐使用 importlib.resources 或基于 __file__ 的相对路径。",
+                "subdirectories": {
+                  "static/": {
+                    "purpose": "静态文件资源。包括 CSS、JavaScript、图片、字体等，这些文件不需要经过服务器端处理，直接由 Web 服务器返回给客户端。",
+                    "rules": "按类型或功能分子目录（如 css/, js/, images/），并在 Web 框架中配置静态文件路由指向此目录。"
+                  },
+                  "templates/": {
+                    "purpose": "模板文件。用于服务端渲染动态内容，如 Jinja2 模板（邮件、HTML 页面、报表等）。",
+                    "rules": "建议使用 .j2 扩展名以便语法高亮，并按业务模块或用途（emails/, pages/）分子目录。"
+                  },
+                  "AIprompts/": {
+                    "purpose": "AI 提示词工程资源。存放系统角色定义（System Prompts）、任务级提示词模板、Few-shot 示例等。",
+                    "rules": "可按类型（system/, tasks/, few_shot/）或版本（versioned/v1/）组织。模板中可嵌入 Jinja2 语法用于动态替换变量。"
+                  }
+                }
+              },
+              "services/": {
+                "purpose": "应用层。组合 core 的抽象接口、infrastructure 的具体实现和 resources 的资源，完成单个业务步骤（如生成剧本、合成语音）。",
+                "rules": "依赖 core 中的实体和接口，通过依赖注入获取具体实现（如 Repository）。这里不应包含复杂的 SQL 或 HTTP 请求代码。"
+              },
+              "workflows/": {
+                "purpose": "业务流程编排层。将多个 services 步骤串联，管理长时运行任务的状态。",
+                "rules": "此目录下的代码专注于'流程定义'，具体执行步骤应调用 services 或 tasks。如果项目只有简单的 CRUD，此目录可以省略。常配合 Airflow/Dramatiq/Celery 使用。"
+              },
+              "infrastructure/": {
+                "purpose": "基础设施层。实现 core 定义的抽象接口，真正调用外部库（OpenAI、FFmpeg、NumPy）或执行数据库操作。",
+                "rules": ""
+              }
+            }
+          }
+        }
+      },
+      "tests/": {
+        "purpose": "所有测试代码的根目录。",
+        "rules": ""
+      },
+      "CHANGELOG.md": {
+        "purpose": "版本更新日志。按 Keep a Changelog 规范记录每个版本的 Added/Changed/Deprecated/Fixed/Security。",
+        "rules": "使用语义化版本（SemVer）。"
+      },
+      "LICENSE.txt": {
+        "purpose": "许可证。",
+        "rules": ""
+      },
+      "README.md": {
+        "purpose": "项目首页文档。包含项目简介、快速启动命令（安装、运行）、目录结构简述。",
+        "rules": ""
+      },
+      "SUPPORT.md": {
+        "purpose": "获取支持的途径（社区、Issue、邮件列表等）。",
+        "rules": "可选，通常用于企业或大型开源项目。"
+      },
+      "pyproject.toml": {
+        "purpose": "现代 Python 项目的核心配置文件（PEP 621）。声明项目元数据、构建系统、依赖列表（可替代 requirements.txt + setup.py）。",
+        "rules": ""
+      }
+    }
+  },
+  "rule": "整洁架构的核心在于依赖方向只能由外向内。核心的 core 绝不能知道外层的存在。具体的依赖链条为：api / workflows ➡ services ➡ core (domain)。core 作为领域层保持绝对纯净，不允许导入 api、services 或 infrastructure 中的任何模块。resources 属于基础设施资源，可在任意层通过 importlib.resources 或路径方式引用，但建议在 services 或 api 层使用，避免 core 直接依赖具体资源路径。",
+  "naming_convention": {
+    "directories": "小写复数（如 services, models）",
+    "files": "snake_case（如 user_service.py），测试文件以 test_ 开头",
+    "classes": "PascalCase（如 UserService）",
+    "root_docs": "全大写（README.md, LICENSE.txt, CHANGELOG.md）"
+  }
+}
