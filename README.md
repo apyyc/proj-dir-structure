@@ -1,4 +1,4 @@
-# ass-Computational_proj-structure
+# proj-dir-structure
 
 > **目录结构即规范** —— 基于 `structure.json` 描述的项目脚手架生成工具。
 
