@@ -2,7 +2,7 @@
 
 > **目录结构即规范** —— 基于 `structure.json` 描述的项目脚手架生成工具。
 
-ass-Computational_proj-structure 用一份 `structure.json` 定义目标项目的目录骨架与每个节点的职责（`purpose` / `rules`），
+proj-dir-structure 用一份 `structure.json` 定义目标项目的目录骨架与每个节点的职责（`purpose` / `rules`），
 然后在任意输出目录中自动**重建目录骨架、填充模板文件内容、回填项目名/版本/日期等占位符**，
 从而保证每一个新项目都遵循统一的项目结构与整洁架构规范。
 
